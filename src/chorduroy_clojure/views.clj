@@ -1,7 +1,7 @@
 (ns chorduroy-clojure.views
   (:use [hiccup core page form]))
 
-(def strings ["6th" "5th" "4th" "3rd" "2nd" "1st"])
+(def strings ["Sixth" "Fifth" "Fourth" "Third" "Second" "First"])
 (def pitches ["A" "A#/Bb" "B" "C" "C#/Db" "D" "D#/Eb" "E" "F" "F#/Gb" "G" "G#/Ab"])
 
 (defn index-page
