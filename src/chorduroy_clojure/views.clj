@@ -10,10 +10,10 @@
    [:head
     [:title "Chorduroy"]]
    [:body
-    [:form {:action "/results" :method "get"}
-     (for [string strings]
-       (list [:label {:for (str string "_String")} (str string " String")]
-             [:select {:id string :name string}
-              (for [pitch pitches]
-                [:option {:value pitch} pitch])]))
-     [:input {:name "commit" :value "Submit" :data-disable-with "Submit" :type "Submit"}]]]))
+    (form-to [:get "/results"]
+             (for [string strings]
+               (list [:label {:for (str string "_String")} (str string " String")]
+                     [:select {:id string :name string}
+                      (for [pitch pitches]
+                        [:option {:value pitch} pitch])])))
+    [:input {:name "commit" :value "Submit" :data-disable-with "Submit" :type "Submit"}]]])
