@@ -6,7 +6,7 @@
 
 (defroutes app-routes
   (GET "/" [] (views/index-page))
-  (POST "/results" {form-params :form-params} (str form-params))
+  (POST "/results" {{:strs [sixth fifth fourth third second first]} :form-params} (str sixth))
   (route/not-found "Not Found"))
 
 (def app
