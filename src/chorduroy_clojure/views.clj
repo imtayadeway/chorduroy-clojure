@@ -10,7 +10,7 @@
    [:head
     [:title "Chorduroy"]]
    [:body
-    (form-to [:get "/results"]
+    (form-to [:post "/results"]
              (for [string strings]
                (list (label {:for (str string "_String")} (str string "_String") (str string " String"))
                      (drop-down {:id string :name string} string pitches)))
