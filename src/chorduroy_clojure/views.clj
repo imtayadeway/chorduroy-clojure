@@ -17,7 +17,7 @@
              (submit-button {:name "commit" :value "Submit" :data-disable-with "Submit" :type "Submit"} "Submit"))]))
 
 (defn results-page
-  []
+  [results]
   (html5
    [:head
     [:title "Chorduroy"]]
