@@ -13,5 +13,5 @@
     (form-to [:post "/results"]
              (for [string strings]
                (list (label {:for (str string "_String")} (str string "_String") (str string " String"))
-                     (drop-down {:id string :name string} string pitches)))
+                     (drop-down {:id string :name (clojure.string/lower-case string)} string pitches)))
              (submit-button {:name "commit" :value "Submit" :data-disable-with "Submit" :type "Submit"} "Submit"))]))
