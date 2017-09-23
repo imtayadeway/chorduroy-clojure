@@ -22,6 +22,7 @@
    [:head
     [:title "Chorduroy"]]
    [:body
-    [:h2 "A major"]
-    [:pre "--0--\n--0--\n--0--\n--0--\n--0--\n--0--"]
-    [:pre (str results)]]))
+    (for [{:keys [name charts]} results]
+      (list [:h2 name]
+            (for [chart charts]
+              [:pre chart])))]))
