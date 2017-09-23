@@ -8,8 +8,8 @@
 (defroutes app-routes
   (GET "/" [] (views/index-page))
   (POST "/results"
-        {{:strs [sixth fifth fourth third second first] :as strings} :form-params}
-        (views/results-page (generator/generate strings)))
+        {{:strs [sixth fifth fourth third second first]} :form-params}
+        (views/results-page (generator/generate [sixth fifth fourth third second first])))
   (route/not-found "Not Found"))
 
 (def app
