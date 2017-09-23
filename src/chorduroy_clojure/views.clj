@@ -23,4 +23,5 @@
     [:title "Chorduroy"]]
    [:body
     [:h2 "A major"]
-    [:pre "--0--\n--0--\n--0--\n--0--\n--0--\n--0--"]]))
+    [:pre "--0--\n--0--\n--0--\n--0--\n--0--\n--0--"]
+    [:pre (str results)]]))
