@@ -11,11 +11,13 @@
 
 (deftest positions-for-chord-test
   (let [standard-e-chords (positions-for-chord {:pitch "E" :tonality "Major"} standard-tuning)
-        open-d-chords (positions-for-chord {:pitch "D" :tonality "Major"} open-g-tuning)]
         standard-g-chords (positions-for-chord {:pitch "G" :tonality "Major"} standard-tuning)
+        open-d-chords (positions-for-chord {:pitch "D" :tonality "Major"} open-g-tuning)
+        open-g-chords (positions-for-chord {:pitch "G" :tonality "Major"} open-g-tuning)]
     (is (some #{[0 2 2 1 0 0]} standard-e-chords))
     (is (some #{[3 2 0 0 0 3]} standard-g-chords))
     (is (some #{[0 2 0 2 3 0]} open-d-chords))
+    (is (some #{[nil 0 0 0 0 0]} open-g-chords))
     (is (not-any? #{[0 2 2 1 0 0]} standard-g-chords))))
 
 (deftest generate-test
