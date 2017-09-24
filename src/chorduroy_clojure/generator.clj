@@ -14,7 +14,9 @@
   [chord tuning]
   (case (:pitch chord)
     "E" [[0 2 2 1 0 0]]
-    "G" [[3 2 0 0 0 3] [nil 0 0 0 0 0]]
+    "G" (if (= "E" (get tuning 0))
+          [[3 2 0 0 0 3]]
+          [[nil 0 0 0 0 0]])
     "D" [[0 2 0 2 3 0]]))
 
 (defn generate
