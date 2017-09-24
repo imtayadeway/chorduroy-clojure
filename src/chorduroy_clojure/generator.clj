@@ -3,7 +3,7 @@
 (def standard-tuning ["E" "A" "D" "G" "B" "E"])
 (def the-major-and-minor-chords
   (set (for [pitch ["A" "A#/Bb" "B" "C" "C#/Db" "D" "D#/Eb" "E" "F" "F#/Gb" "G" "G#/Ab"]
-             harmony ["major" "minor"]]
+             harmony ["Major" "Minor"]]
          (str pitch " " harmony))))
 
 (defn generate-for-chord
