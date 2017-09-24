@@ -6,6 +6,9 @@
   (let [results (generate standard-tuning)
         chords (map :name results)]
     (is (= the-major-and-minor-chords (set chords)))))
+(deftest name-for-chord-test
+  (is (= "A Major" (name-for-chord {:pitch "A" :tonality "Major"})))
+  (is (= "A Minor" (name-for-chord {:pitch "A" :tonality "Minor"}))))
 
 (deftest positions-for-chord-test
   (let [e-chords (positions-for-chord {:pitch "E" :tonality "Major"} standard-tuning)

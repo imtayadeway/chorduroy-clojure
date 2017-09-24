@@ -4,7 +4,12 @@
 (def the-major-and-minor-chords
   (set (for [pitch ["A" "A#/Bb" "B" "C" "C#/Db" "D" "D#/Eb" "E" "F" "F#/Gb" "G" "G#/Ab"]
              tonality ["Major" "Minor"]]
-         (str pitch " " tonality))))
+         {:pitch pitch :tonality tonality} )))
+
+(defn name-for-chord
+  [chord]
+  (let [{:keys [pitch tonality]} chord]
+    (str pitch " " tonality)))
 
 (defn positions-for-chord
   [chord tuning]
