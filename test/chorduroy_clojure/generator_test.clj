@@ -10,7 +10,8 @@
   (let [e-chords (positions-for-chord {:pitch "E" :tonality "Major"} standard-tuning)
         g-chords (positions-for-chord {:pitch "G" :tonality "Minor"} standard-tuning)]
     (is (some #{[0 2 2 1 0 0]} e-chords))
-    (is (some #{[3 2 0 0 0 3]} g-chords))))
+    (is (some #{[3 2 0 0 0 3]} g-chords))
+    (is (not-any? #{[0 2 2 1 0 0]} g-chords))))
 
 (deftest generate-test
   (let [results (generate standard-tuning)

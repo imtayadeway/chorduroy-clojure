@@ -13,7 +13,9 @@
 
 (defn positions-for-chord
   [chord tuning]
-  [[0 2 2 1 0 0] [3 2 0 0 0 3]])
+  (if (= (:pitch chord) "E")
+    [[0 2 2 1 0 0]]
+    [[3 2 0 0 0 3]]))
 
 (defn generate
   [tuning]
