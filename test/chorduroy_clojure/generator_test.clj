@@ -9,6 +9,10 @@
   (is (= "A Major" (name-for-chord {:pitch "A" :tonality "Major"})))
   (is (= "A Minor" (name-for-chord {:pitch "A" :tonality "Minor"}))))
 
+(deftest in-harmony?-test
+  (is (in-harmony? "A" 0 {:pitch "A" :tonality "Major"}))
+  (is (not (in-harmony? "B" 0 {:pitch "A" :tonality "Major"}))))
+
 (deftest positions-for-chord-test
   (let [standard-e-chords (positions-for-chord {:pitch "E" :tonality "Major"} standard-tuning)
         standard-g-chords (positions-for-chord {:pitch "G" :tonality "Major"} standard-tuning)
