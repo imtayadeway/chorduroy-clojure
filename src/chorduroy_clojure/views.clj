@@ -4,6 +4,14 @@
 (def strings ["Sixth" "Fifth" "Fourth" "Third" "Second" "First"])
 (def pitches ["A" "A#/Bb" "B" "C" "C#/Db" "D" "D#/Eb" "E" "F" "F#/Gb" "G" "G#/Ab"])
 
+(defn position-to-chart
+  [position]
+  (->> position
+       (map #(str "--" % "--"))
+       reverse
+       (interpose "\n")
+       (apply str)))
+
 (defn index-page
   []
   (html5
@@ -22,7 +30,7 @@
    [:head
     [:title "Chorduroy"]]
    [:body
-    (for [{:keys [name charts]} results]
+    (for [{:keys [name positions]} results]
       (list [:h2 name]
-            (for [chart charts]
-              [:pre chart])))]))
+            (for [position positions]
+              [:pre (position-to-chart position)])))]))
