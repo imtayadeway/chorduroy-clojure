@@ -12,7 +12,7 @@
 
 (defn in-harmony?
   [open fret chord]
-  true)
+  (= open (:pitch chord)))
 
 (defn positions-for-chord
   [chord tuning]
