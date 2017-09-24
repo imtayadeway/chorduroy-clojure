@@ -2,6 +2,8 @@
   (:require [clojure.test :refer :all]
             [chorduroy-clojure.generator :refer :all]))
 
+(def standard-tuning ["E" "A" "D" "G" "B" "E"])
+
 (deftest name-for-chord-test
   (is (= "A Major" (name-for-chord {:pitch "A" :tonality "Major"})))
   (is (= "A Minor" (name-for-chord {:pitch "A" :tonality "Minor"}))))
