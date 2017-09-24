@@ -6,11 +6,11 @@
              tonality ["Major" "Minor"]]
          (str pitch " " tonality))))
 
-(defn generate-for-chord
+(defn positions-for-chord
   [chord tuning]
   [[0 2 2 1 0 0] [3 2 0 0 0 3]])
 
 (defn generate
   [tuning]
-  (map (fn [chord] {:name chord :charts ["--0--\n--0--\n--0--\n--0--\n--0--\n--0--"]})
+  (map (fn [chord] {:name (name-for-chord chord) :positions (positions-for-chord chord tuning)})
        the-major-and-minor-chords))
