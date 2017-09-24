@@ -14,5 +14,6 @@
 
 (deftest generate-test
   (let [results (generate standard-tuning)
-        chords (map name-for-chord results)]
-    (is (= the-major-and-minor-chords (set chords)))))
+        chords (map :name results)
+        expected (map name-for-chord the-major-and-minor-chords)]
+    (is (= (set expected) (set chords)))))
