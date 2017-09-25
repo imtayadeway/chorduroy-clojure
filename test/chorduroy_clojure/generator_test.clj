@@ -6,18 +6,29 @@
 (def open-g-tuning ["D" "G" "D" "G" "B" "D"])
 
 (deftest name-for-chord-test
-  (is (= "A Major" (name-for-chord {:pitch "A" :tonality "Major"})))
-  (is (= "A Minor" (name-for-chord {:pitch "A" :tonality "Minor"}))))
+  (is (= "A Major" (name-for-chord {:root "A" :tonality "Major"})))
+  (is (= "A Minor" (name-for-chord {:root "A" :tonality "Minor"}))))
+
+(deftest walk-scale-test
+  (is (= "A#/Bb" (walk-scale "A" 1)))
+  (is (= "B" (walk-scale "A" 2)))
+  (is (= "A" (walk-scale "G#/Ab" 1))))
+
+(deftest harmonize-test
+  (is (= #{"C" "E" "G"} (harmonize {:root "C" :tonality "Major"})))
+  (is (= #{"C" "D#/Eb" "G"} (harmonize {:root "C" :tonality "Minor"})))
+  (is (= #{"G" "B" "D"} (harmonize {:root "G" :tonality "Major"}))))
 
 (deftest in-harmony?-test
-  (is (in-harmony? "A" 0 {:pitch "A" :tonality "Major"}))
-  (is (not (in-harmony? "B" 0 {:pitch "A" :tonality "Major"}))))
+  (is (in-harmony? "A" {:root "A" :tonality "Major"}))
+  (is (in-harmony? "C#/Db" {:root "A" :tonality "Major"}))
+  (is (not (in-harmony? "B" {:root "A" :tonality "Major"}))))
 
 (deftest positions-for-chord-test
-  (let [standard-e-chords (positions-for-chord {:pitch "E" :tonality "Major"} standard-tuning)
-        standard-g-chords (positions-for-chord {:pitch "G" :tonality "Major"} standard-tuning)
-        open-d-chords (positions-for-chord {:pitch "D" :tonality "Major"} open-g-tuning)
-        open-g-chords (positions-for-chord {:pitch "G" :tonality "Major"} open-g-tuning)]
+  (let [standard-e-chords (positions-for-chord {:root "E" :tonality "Major"} standard-tuning)
+        standard-g-chords (positions-for-chord {:root "G" :tonality "Major"} standard-tuning)
+        open-d-chords (positions-for-chord {:root "D" :tonality "Major"} open-g-tuning)
+        open-g-chords (positions-for-chord {:root "G" :tonality "Major"} open-g-tuning)]
     (is (some #{[0 2 2 1 0 0]} standard-e-chords))
     (is (some #{[3 2 0 0 0 3]} standard-g-chords))
     (is (some #{[0 2 0 2 3 0]} open-d-chords))
