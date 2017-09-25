@@ -17,7 +17,7 @@
   [start degrees]
   (let [start-index (.indexOf the-chromatic-scale start)
         sum (+ start-index degrees)
-        index (if (< sum 11) sum (- sum 12))]
+        index (if (< sum 12) sum (- sum 12))]
     (get the-chromatic-scale index)))
 
 (defn harmonize
@@ -30,17 +30,21 @@
 
 (defn in-harmony?
   [note chord]
-  (= note (:root chord)))
+  (let [notes (harmonize chord)]
+    (some #{note} notes)))
+
+(defn first-fret-in-harmony
+  ([chord open]
+   (first-fret-in-harmony chord open 0))
+  ([chord open fret]
+   (let [note (walk-scale open fret)]
+     (if (in-harmony? note chord)
+       fret
+       (recur chord open (inc fret))))))
 
 (defn positions-for-chord
   [chord tuning]
-  [(map (fn first-fret-in-harmony
-          ([open]
-           (first-fret-in-harmony open 0))
-          ([open fret]
-           (if (in-harmony? open fret chord)
-             fret
-             (recur open (inc fret))))) tuning)])
+  [(map (partial first-fret-in-harmony chord) tuning)])
 
 (defn generate
   [tuning]
