@@ -49,7 +49,12 @@
         first (frets-in-harmony chord (get tuning 5))]
     [sixth fifth fourth third second first]))
 
+(defn- generate-row
+  [tuning chord]
+  (let [name (name-for-chord chord)
+        positions (positions-for-chord chord tuning)]
+    {:name name :positions positions}))
+
 (defn generate
   [tuning]
-  (map (fn [chord] {:name (name-for-chord chord) :positions (positions-for-chord chord tuning)})
-       the-major-and-minor-chords))
+  (map (partial generate-row tuning) the-major-and-minor-chords))
