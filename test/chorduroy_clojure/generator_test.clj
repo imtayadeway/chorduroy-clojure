@@ -43,7 +43,10 @@
 (deftest playable?-test
   (is (playable? [0 2 2 1 0 0]))
   (is (not (playable? [0 2 nil 1 0 0])))
-  (is (playable? [nil nil 0 2 3 2])))
+  (is (playable? [nil nil 0 2 3 2]))
+  (is (not (playable? [1 2 3 4 5 6])))
+  (is (playable? [nil nil nil nil nil nil]))
+  (is (playable? [0 7 6 7 7 0])))
 
 (deftest generate-test
   (let [results (generate standard-tuning)

@@ -51,8 +51,13 @@
 
 (defn playable?
   [position]
-  (let [clusters (partition-by nil? position)]
-    (< (count clusters) 3)))
+  (let [clusters (partition-by nil? position)
+        fretted (remove #(or (nil? %) (zero? %)) position)
+        max (if (empty? fretted) 0 (apply max fretted))
+        min (if (empty? fretted) 0 (apply min fretted))
+        reach (- max min)]
+    (and (< (count clusters) 3)
+         (< reach 4))))
 
 (defn- generate-row
   [tuning chord]
