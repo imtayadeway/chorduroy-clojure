@@ -59,10 +59,14 @@
     (and (< (count clusters) 3)
          (< reach 4))))
 
+(defn sufficient?
+  [position]
+  true)
+
 (defn- generate-row
   [tuning chord]
   (let [name (name-for-chord chord)
-        positions (filter playable? (positions-for-chord chord tuning))]
+        positions (filter #(and (playable? %) (sufficient? %)) (positions-for-chord chord tuning))]
     {:name name :positions positions}))
 
 (defn generate
