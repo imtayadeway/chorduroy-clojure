@@ -62,7 +62,7 @@
 (defn- generate-row
   [tuning chord]
   (let [name (name-for-chord chord)
-        positions (playable? (positions-for-chord chord tuning))]
+        positions (filter playable? (positions-for-chord chord tuning))]
     {:name name :positions positions}))
 
 (defn generate
