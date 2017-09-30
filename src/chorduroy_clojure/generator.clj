@@ -49,10 +49,14 @@
         first (frets-in-harmony chord (get tuning 5))]
     [sixth fifth fourth third second first]))
 
+(defn playable?
+  [position]
+  true)
+
 (defn- generate-row
   [tuning chord]
   (let [name (name-for-chord chord)
-        positions (positions-for-chord chord tuning)]
+        positions (playable? (positions-for-chord chord tuning))]
     {:name name :positions positions}))
 
 (defn generate
