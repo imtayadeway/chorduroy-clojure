@@ -51,7 +51,8 @@
 
 (defn playable?
   [position]
-  true)
+  (let [clusters (partition-by nil? position)]
+    (< (count clusters) 3)))
 
 (defn- generate-row
   [tuning chord]

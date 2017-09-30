@@ -40,6 +40,11 @@
     (is (not-any? #{[0 2 2 1 0 0]} standard-g-chords))
     (is (not-any? #{[nil 0 0 0 0 0]} standard-g-chords))))
 
+(deftest playable?-test
+  (is (playable? [0 2 2 1 0 0]))
+  (is (not (playable? [0 2 nil 1 0 0])))
+  (is (playable? [nil nil 0 2 3 2])))
+
 (deftest generate-test
   (let [results (generate standard-tuning)
         chords (map :name results)
