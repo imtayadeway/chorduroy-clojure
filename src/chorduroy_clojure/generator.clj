@@ -35,7 +35,7 @@
 
 (defn frets-in-harmony
   [chord open]
-  (->> (range 4)
+  (->> (range 11)
        (filter #(in-harmony? (walk-scale open %) chord))
        (#(conj % nil))))
 
