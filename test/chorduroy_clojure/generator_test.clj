@@ -27,11 +27,6 @@
   (is (in-harmony? "G#/Ab" {:root "E" :tonality "Major"}))
   (is (not (in-harmony? "B" {:root "A" :tonality "Major"}))))
 
-(deftest first-fret-in-harmony-test
-  (is (= 0 (first-fret-in-harmony {:root "E" :tonality "Major"} "E")))
-  (is (= 2 (first-fret-in-harmony {:root "E" :tonality "Major"} "A")))
-  (is (= 1 (first-fret-in-harmony {:root "E" :tonality "Major"} "G"))))
-
 (deftest positions-for-chord-test
   (let [standard-e-chords (positions-for-chord {:root "E" :tonality "Major"} standard-tuning)
         standard-g-chords (positions-for-chord {:root "G" :tonality "Major"} standard-tuning)
@@ -39,6 +34,7 @@
         open-g-chords (positions-for-chord {:root "G" :tonality "Major"} open-g-tuning)]
     (is (some #{[0 2 2 1 0 0]} standard-e-chords))
     (is (some #{[3 2 0 0 0 3]} standard-g-chords))
+    (is (some #{[3 2 0 0 3 3]} standard-g-chords))
     (is (some #{[0 2 0 2 3 0]} open-d-chords))
     (is (some #{[nil 0 0 0 0 0]} open-g-chords))
     (is (not-any? #{[0 2 2 1 0 0]} standard-g-chords))

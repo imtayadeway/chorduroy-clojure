@@ -33,18 +33,21 @@
   (let [notes (harmonize chord)]
     (some #{note} notes)))
 
-(defn first-fret-in-harmony
-  ([chord open]
-   (first-fret-in-harmony chord open 0))
-  ([chord open fret]
-   (let [note (walk-scale open fret)]
-     (if (in-harmony? note chord)
-       fret
-       (recur chord open (inc fret))))))
+(defn frets-in-harmony
+  [chord open]
+  (->> (range 4)
+       (filter #(in-harmony? (walk-scale open %) chord))
+       (#(conj % nil))))
 
 (defn positions-for-chord
   [chord tuning]
-  [(map (partial first-fret-in-harmony chord) tuning)])
+  (for [sixth (frets-in-harmony chord (get tuning 0))
+        fifth (frets-in-harmony chord (get tuning 1))
+        fourth (frets-in-harmony chord (get tuning 2))
+        third (frets-in-harmony chord (get tuning 3))
+        second (frets-in-harmony chord (get tuning 4))
+        first (frets-in-harmony chord (get tuning 5))]
+    [sixth fifth fourth third second first]))
 
 (defn generate
   [tuning]
