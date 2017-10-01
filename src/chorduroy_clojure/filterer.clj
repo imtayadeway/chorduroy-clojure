@@ -12,9 +12,10 @@
 
 (defn min-max-fret
   [frets]
-  (if (empty? frets)
-    [0 0]
-    [(apply min frets)(apply max frets)]))
+  (let [fretted (filter fretted? frets)]
+    (if (empty? fretted)
+      [0 0]
+      [(apply min fretted) (apply max fretted)])))
 
 (defn fretted?
   [fret]
@@ -24,7 +25,7 @@
 (defn- reachable?
   [frets]
   (let [fretted (filter fretted? frets)
-        [min max] (min-max-fret fretted)
+        [min max] (min-max-fret frets)
         fingers (if (some #{0} frets)
                   (count fretted)
                   (+ 1 (count (remove #(= min %) fretted))))
