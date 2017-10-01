@@ -16,9 +16,14 @@
     [0 0]
     [(apply min frets)(apply max frets)]))
 
+(defn fretted?
+  [fret]
+  (and (not (nil? fret))
+       (not (zero? fret))))
+
 (defn- reachable?
   [frets]
-  (let [fretted (remove #(or (nil? %) (zero? %)) frets)
+  (let [fretted (filter fretted? frets)
         [min max] (min-max-fret fretted)
         fingers (if (some #{0} frets)
                   (count fretted)
