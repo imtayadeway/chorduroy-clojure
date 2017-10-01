@@ -35,7 +35,7 @@
 
 (defn frets-in-harmony
   [chord open]
-  (->> (range 11)
+  (->> (range 12)
        (filter #(in-harmony? (walk-scale open %) chord))
        (map #(hash-map :open open :fret %))))
 
