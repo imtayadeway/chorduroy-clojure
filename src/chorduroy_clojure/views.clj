@@ -34,5 +34,9 @@
    [:body
     (for [{:keys [name positions]} results]
       (list [:h2 name]
-            (for [position positions]
-              (list [:pre (position-to-chart position)]))))]))
+            [:table
+             [:tr
+              (for [position positions]
+                (list [:td
+                       [:pre (position-to-chart position)]]
+                      [:td]))]]))]))
