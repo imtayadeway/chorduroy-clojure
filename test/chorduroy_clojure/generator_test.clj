@@ -32,21 +32,37 @@
         standard-g-chords (positions-for-chord {:root "G" :tonality "Major"} standard-tuning)
         open-d-chords (positions-for-chord {:root "D" :tonality "Major"} open-g-tuning)
         open-g-chords (positions-for-chord {:root "G" :tonality "Major"} open-g-tuning)]
-    (is (some #{[0 2 2 1 0 0]} standard-e-chords))
-    (is (some #{[3 2 0 0 0 3]} standard-g-chords))
-    (is (some #{[3 2 0 0 3 3]} standard-g-chords))
-    (is (some #{[0 2 0 2 3 0]} open-d-chords))
-    (is (some #{[nil 0 0 0 0 0]} open-g-chords))
-    (is (not-any? #{[0 2 2 1 0 0]} standard-g-chords))
-    (is (not-any? #{[nil 0 0 0 0 0]} standard-g-chords))))
+    (is (some #{[0 2 2 1 0 0]} (map frets-from standard-e-chords)))
+    (is (some #{[3 2 0 0 0 3]} (map frets-from standard-g-chords)))
+    (is (some #{[3 2 0 0 3 3]} (map frets-from standard-g-chords)))
+    (is (some #{[0 2 0 2 3 0]} (map frets-from open-d-chords)))
+    (is (some #{[nil 0 0 0 0 0]} (map frets-from open-g-chords)))
+    (is (not-any? #{[0 2 2 1 0 0]} (map frets-from standard-g-chords)))
+    (is (not-any? #{[nil 0 0 0 0 0]} (map frets-from standard-g-chords)))))
 
 (deftest playable?-test
-  (is (playable? [0 2 2 1 0 0]))
-  (is (not (playable? [0 2 nil 1 0 0])))
-  (is (playable? [nil nil 0 2 3 2]))
-  (is (not (playable? [1 2 3 4 5 6])))
-  (is (playable? [nil nil nil nil nil nil]))
-  (is (playable? [0 7 6 7 7 0])))
+  (is (playable? [{:fret 0} {:fret 2} {:fret 2} {:fret 1} {:fret 0} {:fret 0}]))
+  (is (not (playable? [{:fret 0} {:fret 2} {:fret nil} {:fret 1} {:fret 0} {:fret 0}])))
+  (is (playable? [{:fret nil} {:fret nil} {:fret 0} {:fret 2} {:fret 3} {:fret 2}]))
+  (is (not (playable? [{:fret 1} {:fret 2} {:fret 3} {:fret 4} {:fret 5} {:fret 6}])))
+  (is (playable? [{:fret nil} {:fret nil} {:fret nil} {:fret nil} {:fret nil} {:fret nil}]))
+  (is (playable? [{:fret 0} {:fret 7} {:fret 6} {:fret 7} {:fret 7} {:fret 0}])))
+
+(deftest get-position-notes-test
+  (let [e-notes (get-position-notes [{:open "E" :fret 0}
+                                     {:open "A" :fret 2}
+                                     {:open "D" :fret 2}
+                                     {:open "G" :fret 1}
+                                     {:open "B" :fret 0}
+                                     {:open "E" :fret 0}])
+        d-notes (get-position-notes [{:open "E" :fret nil}
+                                     {:open "A" :fret nil}
+                                     {:open "D" :fret 0}
+                                     {:open "G" :fret 2}
+                                     {:open "B" :fret 3}
+                                     {:open "E" :fret 2}])]
+    (is (= #{"E" "G#/Ab" "B"} e-notes))
+    (is (= #{"D" "F#/Gb" "A"} d-notes))))
 
 (deftest sufficient?-test
   (let [e-chord {:root "E" :tonality "Major"}

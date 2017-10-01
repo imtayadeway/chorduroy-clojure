@@ -37,7 +37,8 @@
   [chord open]
   (->> (range 11)
        (filter #(in-harmony? (walk-scale open %) chord))
-       (#(conj % nil))))
+       (#(conj % nil))
+       (map #(hash-map :open open :fret %))))
 
 (defn positions-for-chord
   [chord tuning]
@@ -49,26 +50,38 @@
         first (frets-in-harmony chord (get tuning 5))]
     [sixth fifth fourth third second first]))
 
+(defn frets-from
+  [position]
+  (map :fret position))
+
 (defn playable?
   [position]
-  (let [clusters (partition-by nil? position)
-        fretted (remove #(or (nil? %) (zero? %)) position)
+  (let [frets (frets-from position)
+        clusters (partition-by nil? frets)
+        fretted (remove #(or (nil? %) (zero? %)) frets)
         max (if (empty? fretted) 0 (apply max fretted))
         min (if (empty? fretted) 0 (apply min fretted))
         reach (- max min)]
     (and (< (count clusters) 3)
          (< reach 4))))
 
+(defn get-position-notes
+  [position]
+  (->> position
+       (remove #(nil? (:fret %)))
+       (map #(walk-scale (:open %) (:fret %)))
+       set))
+
 (defn sufficient?
   [chord position]
   (let [chord-notes (harmonize chord)
-        position-notes (set (map #(walk-scale (:open %) (:fret %)) position))]
+        position-notes (get-position-notes position)]
     (every? position-notes chord-notes)))
 
 (defn- generate-row
   [tuning chord]
   (let [name (name-for-chord chord)
-        positions (filter #(and (playable? %) (sufficient? %)) (positions-for-chord chord tuning))]
+        positions (filter #(and (playable? %) (sufficient? chord %)) (positions-for-chord chord tuning))]
     {:name name :positions positions}))
 
 (defn generate
