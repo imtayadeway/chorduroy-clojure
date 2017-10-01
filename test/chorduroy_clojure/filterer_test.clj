@@ -2,60 +2,44 @@
   (:require [clojure.test :refer :all]
             [chorduroy-clojure.filterer :refer :all]))
 
+(defn build-standard-position
+  [frets]
+  (let [[sixth fifth fourth third second first] frets]
+    [{:open "E" :fret sixth}
+     {:open "A" :fret fifth}
+     {:open "D" :fret fourth}
+     {:open "G" :fret third}
+     {:open "B" :fret second}
+     {:open "E" :fret first}]))
+
+(def standard-e-position (build-standard-position [0 2 2 1 0 0]))
+(def standard-d-position (build-standard-position [nil nil 0 2 3 2]))
+(def power-e-position (build-standard-position [0 2 2 nil nil nil]))
+
 (deftest playable?-test
-  (is (playable? [{:fret 0} {:fret 2} {:fret 2} {:fret 1} {:fret 0} {:fret 0}]))
-  (is (not (playable? [{:fret 0} {:fret 2} {:fret nil} {:fret 1} {:fret 0} {:fret 0}])))
-  (is (playable? [{:fret nil} {:fret nil} {:fret 0} {:fret 2} {:fret 3} {:fret 2}]))
-  (is (not (playable? [{:fret 1} {:fret 2} {:fret 3} {:fret 4} {:fret 5} {:fret 6}])))
-  (is (playable? [{:fret nil} {:fret nil} {:fret nil} {:fret nil} {:fret nil} {:fret nil}]))
-  (is (playable? [{:fret 0} {:fret 7} {:fret 6} {:fret 7} {:fret 7} {:fret 0}])))
+  (is (playable? standard-e-position))
+  (is (not (playable? (build-standard-position [0 2 nil 1 0 0]))))
+  (is (playable? standard-d-position))
+  (is (not (playable? (build-standard-position [1 2 3 4 5 6]))))
+  (is (playable? (build-standard-position [nil nil nil nil nil nil])))
+  (is (playable? (build-standard-position [0 7 6 7 7 0]))))
 
 (deftest get-position-notes-test
-  (let [e-notes (get-position-notes [{:open "E" :fret 0}
-                                     {:open "A" :fret 2}
-                                     {:open "D" :fret 2}
-                                     {:open "G" :fret 1}
-                                     {:open "B" :fret 0}
-                                     {:open "E" :fret 0}])
-        d-notes (get-position-notes [{:open "E" :fret nil}
-                                     {:open "A" :fret nil}
-                                     {:open "D" :fret 0}
-                                     {:open "G" :fret 2}
-                                     {:open "B" :fret 3}
-                                     {:open "E" :fret 2}])]
+  (let [e-notes (get-position-notes standard-e-position)
+        d-notes (get-position-notes standard-d-position)]
     (is (= #{"E" "G#/Ab" "B"} e-notes))
     (is (= #{"D" "F#/Gb" "A"} d-notes))))
 
 (deftest sufficient?-test
   (let [e-chord {:root "E" :tonality "Major"}
-        sufficient-position [{:open "E" :fret 0}
-                             {:open "A" :fret 2}
-                             {:open "D" :fret 2}
-                             {:open "G" :fret 1}
-                             {:open "B" :fret 0}
-                             {:open "E" :fret 0}]
-        insufficient-position [{:open "E" :fret 0}
-                               {:open "B" :fret 0}
-                               {:open "E" :fret 0}
-                               {:open "B" :fret 0}
-                               {:open "E" :fret 0}
-                               {:open "B" :fret 0}]]
+        sufficient-position standard-e-position
+        insufficient-position power-e-position]
     (is (sufficient? e-chord sufficient-position))
     (is (not (sufficient? e-chord insufficient-position)))))
 
 (deftest root-position?-test
   (let [e-chord {:root "E" :tonality "Major"}
-        root-position [{:open "E" :fret 0}
-                       {:open "A" :fret 2}
-                       {:open "D" :fret 2}
-                       {:open "G" :fret 1}
-                       {:open "B" :fret 0}
-                       {:open "E" :fret 0}]
-        second-inversion [{:open "E" :fret nil}
-                          {:open "A" :fret 2}
-                          {:open "D" :fret 2}
-                          {:open "G" :fret 1}
-                          {:open "B" :fret 0}
-                          {:open "E" :fret 0}]]
+        root-position standard-e-position
+        second-inversion (build-standard-position [nil 2 2 1 0 0])]
     (is (root-position? e-chord root-position))
     (is (not (root-position? e-chord second-inversion)))))
