@@ -15,7 +15,9 @@
   (let [fretted (remove #(or (nil? %) (zero? %)) frets)
         max (if (empty? fretted) 0 (apply max fretted))
         min (if (empty? fretted) 0 (apply min fretted))
-        fingers (count fretted)
+        fingers (if (some #{0} frets)
+                  (count fretted)
+                  (+ 1 (count (remove #(= min %) fretted))))
         reach (- max min)]
     (and (< reach 4)
          (< fingers 5))))
