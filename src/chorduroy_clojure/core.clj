@@ -1,5 +1,6 @@
 (ns chorduroy-clojure.core)
 
+(def strings ["Sixth" "Fifth" "Fourth" "Third" "Second" "First"])
 (def the-chromatic-scale
   ["A" "A#/Bb" "B" "C" "C#/Db" "D" "D#/Eb" "E" "F" "F#/Gb" "G" "G#/Ab"])
 
@@ -32,3 +33,13 @@
   [note chord]
   (let [notes (harmonize chord)]
     (some #{note} notes)))
+
+(defn position-to-chart
+  [position]
+  (->> position
+       (map :fret)
+       (map #(or % "x"))
+       (map #(str "--" % "--"))
+       reverse
+       (interpose "\n")
+       (apply str)))

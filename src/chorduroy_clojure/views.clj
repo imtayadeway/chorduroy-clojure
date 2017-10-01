@@ -1,18 +1,6 @@
 (ns chorduroy-clojure.views
   (:use [hiccup core page form]))
-
-(def strings ["Sixth" "Fifth" "Fourth" "Third" "Second" "First"])
-(def pitches ["A" "A#/Bb" "B" "C" "C#/Db" "D" "D#/Eb" "E" "F" "F#/Gb" "G" "G#/Ab"])
-
-(defn position-to-chart
-  [position]
-  (->> position
-       (map :fret)
-       (map #(or % "x"))
-       (map #(str "--" % "--"))
-       reverse
-       (interpose "\n")
-       (apply str)))
+(require '[chorduroy-clojure.core :refer :all])
 
 (defn index-page
   []
@@ -23,7 +11,7 @@
     (form-to [:post "/results"]
              (for [string strings]
                (list (label {:for (str string "_String")} (str string "_String") (str string " String"))
-                     (drop-down {:id string :name (clojure.string/lower-case string)} string pitches)))
+                     (drop-down {:id string :name (clojure.string/lower-case string)} string the-chromatic-scale)))
              (submit-button {:name "commit" :value "Submit" :data-disable-with "Submit" :type "Submit"} "Submit"))]))
 
 (defn results-page
