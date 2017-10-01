@@ -4,7 +4,7 @@
   ["A" "A#/Bb" "B" "C" "C#/Db" "D" "D#/Eb" "E" "F" "F#/Gb" "G" "G#/Ab"])
 
 (def the-major-and-minor-chords
-  (set (for [root the-chromatic-scale
+  (vec (for [root the-chromatic-scale
              tonality ["Major" "Minor"]]
          {:root root :tonality tonality} )))
 
