@@ -22,13 +22,18 @@
   (and (not (nil? fret))
        (not (zero? fret))))
 
-(defn- reachable?
+(defn count-fingers
   [frets]
   (let [fretted (filter fretted? frets)
-        [min max] (min-max-fret frets)
-        fingers (if (some #{0} frets)
-                  (count fretted)
-                  (+ 1 (count (remove #(= min %) fretted))))
+        [min max] (min-max-fret frets)]
+    (if (some #{0} frets)
+      (count fretted)
+      (+ 1 (count (remove #(= min %) fretted))))))
+
+(defn- reachable?
+  [frets]
+  (let [[min max] (min-max-fret frets)
+        fingers (count-fingers frets)
         reach (- max min)]
     (and (< reach 4)
          (< fingers 5))))
