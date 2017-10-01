@@ -60,8 +60,10 @@
          (< reach 4))))
 
 (defn sufficient?
-  [position]
-  true)
+  [chord position]
+  (let [chord-notes (harmonize chord)
+        position-notes (set (map #(walk-scale (:open %) (:fret %)) position))]
+    (every? position-notes chord-notes)))
 
 (defn- generate-row
   [tuning chord]

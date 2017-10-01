@@ -48,6 +48,23 @@
   (is (playable? [nil nil nil nil nil nil]))
   (is (playable? [0 7 6 7 7 0])))
 
+(deftest sufficient?-test
+  (let [e-chord {:root "E" :tonality "Major"}
+        sufficient-position [{:open "E" :fret 0}
+                             {:open "A" :fret 2}
+                             {:open "D" :fret 2}
+                             {:open "G" :fret 1}
+                             {:open "B" :fret 0}
+                             {:open "E" :fret 0}]
+        insufficient-position [{:open "E" :fret 0}
+                               {:open "B" :fret 0}
+                               {:open "E" :fret 0}
+                               {:open "B" :fret 0}
+                               {:open "E" :fret 0}
+                               {:open "B" :fret 0}]]
+    (is (sufficient? e-chord sufficient-position))
+    (is (not (sufficient? e-chord insufficient-position)))))
+
 (deftest generate-test
   (let [results (generate standard-tuning)
         chords (map :name results)
