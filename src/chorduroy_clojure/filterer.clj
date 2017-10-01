@@ -41,4 +41,6 @@
 
 (defn eligible?
   [chord position]
-  (and (playable? position) (sufficient? chord position) (root-position? chord position)))
+  (and (playable? position)
+       (sufficient? chord position)
+       (root-position? chord position)))
