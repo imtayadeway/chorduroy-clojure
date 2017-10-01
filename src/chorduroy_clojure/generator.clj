@@ -37,13 +37,12 @@
   [chord open]
   (->> (range 11)
        (filter #(in-harmony? (walk-scale open %) chord))
-       (#(conj % nil))
        (map #(hash-map :open open :fret %))))
 
 (defn positions-for-chord
   [chord tuning]
-  (for [sixth (frets-in-harmony chord (get tuning 0))
-        fifth (frets-in-harmony chord (get tuning 1))
+  (for [sixth (conj (frets-in-harmony chord (get tuning 0)) {:open (get tuning 0) :fret nil})
+        fifth (conj (frets-in-harmony chord (get tuning 1)) {:open (get tuning 1) :fret nil})
         fourth (frets-in-harmony chord (get tuning 2))
         third (frets-in-harmony chord (get tuning 3))
         second (frets-in-harmony chord (get tuning 4))
