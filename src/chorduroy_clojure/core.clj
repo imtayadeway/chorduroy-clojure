@@ -37,9 +37,7 @@
 (defn position-to-chart
   [position]
   (->> position
-       (map :fret)
-       (map #(or % "x"))
-       (map #(str "--" % "--"))
+       (map #(str "--" (or (:fret %) "x") "--"))
        reverse
        (interpose "\n")
        (apply str)))
