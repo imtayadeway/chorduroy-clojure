@@ -5,16 +5,24 @@
   [position]
   (map :fret position))
 
-(defn playable?
-  [position]
-  (let [frets (frets-from position)
-        clusters (partition-by nil? frets)
-        fretted (remove #(or (nil? %) (zero? %)) frets)
+(defn- well-clustered?
+  [frets]
+  (let [clusters (partition-by nil? frets)]
+    (< (count clusters) 3)))
+
+(defn- reachable?
+  [frets]
+  (let [fretted (remove #(or (nil? %) (zero? %)) frets)
         max (if (empty? fretted) 0 (apply max fretted))
         min (if (empty? fretted) 0 (apply min fretted))
         reach (- max min)]
-    (and (< (count clusters) 3)
-         (< reach 4))))
+    (< reach 4)))
+
+(defn playable?
+  [position]
+  (let [frets (frets-from position)]
+    (and (well-clustered? frets)
+         (reachable? frets))))
 
 (defn get-position-notes
   [position]
