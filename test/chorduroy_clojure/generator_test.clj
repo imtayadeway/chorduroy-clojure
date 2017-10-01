@@ -81,6 +81,23 @@
     (is (sufficient? e-chord sufficient-position))
     (is (not (sufficient? e-chord insufficient-position)))))
 
+(deftest root-position?-test
+  (let [e-chord {:root "E" :tonality "Major"}
+        root-position [{:open "E" :fret 0}
+                       {:open "A" :fret 2}
+                       {:open "D" :fret 2}
+                       {:open "G" :fret 1}
+                       {:open "B" :fret 0}
+                       {:open "E" :fret 0}]
+        second-inversion [{:open "E" :fret nil}
+                          {:open "A" :fret 2}
+                          {:open "D" :fret 2}
+                          {:open "G" :fret 1}
+                          {:open "B" :fret 0}
+                          {:open "E" :fret 0}]]
+    (is (root-position? e-chord root-position))
+    (is (not (root-position? e-chord second-inversion)))))
+
 (deftest generate-test
   (let [results (generate standard-tuning)
         chords (map :name results)

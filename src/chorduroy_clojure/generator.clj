@@ -78,9 +78,18 @@
         position-notes (get-position-notes position)]
     (every? position-notes chord-notes)))
 
+(defn root-position?
+  [chord position]
+  (let [{root :root} chord
+        base (->> position
+                  (remove #(nil? (:fret %)))
+                  first
+                  (#(walk-scale (:open %) (:fret %))))]
+    (= root base)))
+
 (defn- eligible?
   [chord position]
-  (and (playable? position) (sufficient? chord position)))
+  (and (playable? position) (sufficient? chord position) (root-position? chord position)))
 
 (defn- generate-row
   [tuning chord]
