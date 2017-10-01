@@ -78,10 +78,14 @@
         position-notes (get-position-notes position)]
     (every? position-notes chord-notes)))
 
+(defn- eligible?
+  [chord position]
+  (and (playable? position) (sufficient? chord position)))
+
 (defn- generate-row
   [tuning chord]
   (let [name (name-for-chord chord)
-        positions (filter #(and (playable? %) (sufficient? chord %)) (positions-for-chord chord tuning))]
+        positions (filter (partial eligible? chord) (positions-for-chord chord tuning))]
     {:name name :positions positions}))
 
 (defn generate
