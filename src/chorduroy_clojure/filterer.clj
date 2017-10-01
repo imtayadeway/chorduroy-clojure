@@ -33,10 +33,9 @@
 (defn- reachable?
   [frets]
   (let [[min max] (min-max-fret frets)
-        fingers (count-fingers frets)
         reach (- max min)]
     (and (< reach 4)
-         (< fingers 5))))
+         (< (count-fingers frets) 5))))
 
 (defn playable?
   [position]
