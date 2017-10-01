@@ -6,16 +6,6 @@
 (def standard-tuning ["E" "A" "D" "G" "B" "E"])
 (def open-g-tuning ["D" "G" "D" "G" "B" "D"])
 
-(deftest name-for-chord-test
-  (is (= "A Major" (name-for-chord {:root "A" :tonality "Major"})))
-  (is (= "A Minor" (name-for-chord {:root "A" :tonality "Minor"}))))
-
-(deftest in-harmony?-test
-  (is (in-harmony? "A" {:root "A" :tonality "Major"}))
-  (is (in-harmony? "C#/Db" {:root "A" :tonality "Major"}))
-  (is (in-harmony? "G#/Ab" {:root "E" :tonality "Major"}))
-  (is (not (in-harmony? "B" {:root "A" :tonality "Major"}))))
-
 (deftest positions-for-chord-test
   (let [standard-e-chords (positions-for-chord {:root "E" :tonality "Major"} standard-tuning)
         standard-g-chords (positions-for-chord {:root "G" :tonality "Major"} standard-tuning)

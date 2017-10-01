@@ -2,21 +2,6 @@
 (require '[chorduroy-clojure.core :refer :all])
 (require '[chorduroy-clojure.filterer :as filterer])
 
-(def the-major-and-minor-chords
-  (vec (for [root the-chromatic-scale
-             tonality ["Major" "Minor"]]
-         {:root root :tonality tonality} )))
-
-(defn name-for-chord
-  [chord]
-  (let [{:keys [root tonality]} chord]
-    (str root " " tonality)))
-
-(defn in-harmony?
-  [note chord]
-  (let [notes (harmonize chord)]
-    (some #{note} notes)))
-
 (defn frets-in-harmony
   [chord open]
   (->> (range 12)
