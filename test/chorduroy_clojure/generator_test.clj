@@ -1,5 +1,6 @@
 (ns chorduroy-clojure.generator-test
   (:require [clojure.test :refer :all]
+            [chorduroy-clojure.core :refer :all]
             [chorduroy-clojure.generator :refer :all]
             [chorduroy-clojure.filterer :refer [frets-from]]))
 

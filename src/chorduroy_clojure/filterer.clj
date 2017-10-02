@@ -10,17 +10,17 @@
   (let [clusters (partition-by nil? frets)]
     (< (count clusters) 3)))
 
+(defn fretted?
+  [fret]
+  (and (not (nil? fret))
+       (not (zero? fret))))
+
 (defn min-max-fret
   [frets]
   (let [fretted (filter fretted? frets)]
     (if (empty? fretted)
       [0 0]
       [(apply min fretted) (apply max fretted)])))
-
-(defn fretted?
-  [fret]
-  (and (not (nil? fret))
-       (not (zero? fret))))
 
 (defn count-fingers
   [frets]
