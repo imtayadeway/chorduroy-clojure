@@ -13,4 +13,4 @@
   :profiles
   {:dev {:dependencies [[javax.servlet/servlet-api "2.5"]
                         [ring/ring-mock "0.3.0"]]}
-   :uberjar {:main chorduroy-clojure.handler.main :aot :all}})
+   :uberjar {:main chorduroy-clojure.handlerterm :aot :all}})
