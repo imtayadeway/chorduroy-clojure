@@ -20,5 +20,5 @@
 
 (defn -main
   []
-  (let [port (or (Integer. (System/getenv "PORT")) 8080)]
+  (let [port (Integer. (or (System/getenv "PORT") 8080))]
     (run-jetty app {:port port})))
