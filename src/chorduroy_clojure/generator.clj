@@ -26,4 +26,4 @@
 
 (defn generate
   [tuning]
-  (map (partial generate-row tuning) the-major-and-minor-chords))
+  (map (partial generate-row tuning) the-diatonic-chords))
