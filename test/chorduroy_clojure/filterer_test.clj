@@ -16,16 +16,6 @@
 (def standard-d-position (build-standard-position [nil nil 0 2 3 2]))
 (def power-e-position (build-standard-position [0 2 2 nil nil nil]))
 
-(deftest playable?-test
-  (is (playable? standard-e-position))
-  (is (not (playable? (build-standard-position [0 2 nil 1 0 0]))))
-  (is (playable? standard-d-position))
-  (is (not (playable? (build-standard-position [1 2 3 4 5 6]))))
-  (is (not (playable? (build-standard-position [1 2 3 1 2 3]))))
-  (is (playable? (build-standard-position [nil nil nil nil nil nil])))
-  (is (playable? (build-standard-position [0 7 6 7 7 0])))
-  (is (playable? (build-standard-position [1 3 3 2 1 1]))))
-
 (deftest get-position-notes-test
   (let [e-notes (get-position-notes standard-e-position)
         d-notes (get-position-notes standard-d-position)]
