@@ -1,5 +1,6 @@
 (ns chorduroy-clojure.filterer
-  (:use [chorduroy-clojure.core]))
+  (:use [chorduroy-clojure.core])
+  (:require [chorduroy-clojure.position :refer [playable?]]))
 
 (defn frets-from
   [position]

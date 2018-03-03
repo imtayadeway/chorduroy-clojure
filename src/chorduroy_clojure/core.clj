@@ -1,4 +1,5 @@
-(ns chorduroy-clojure.core)
+(ns chorduroy-clojure.core
+  (:require [chorduroy-clojure.position :refer [playable?]]))
 
 (def strings ["Sixth" "Fifth" "Fourth" "Third" "Second" "First"])
 (def the-chromatic-scale
@@ -9,42 +10,16 @@
              tonality ["Major" "Minor" "Major 6th" "Minor 7th" "Dominant 7th" "Major 7th" "Mystic Chord"]]
          {:root root :tonality tonality} )))
 
-(defn- well-clustered?
-  [frets]
-  (let [clusters (partition-by nil? frets)]
-    (< (count clusters) 3)))
 
-(defn- fretted?
-  [fret]
-  (and (not (nil? fret))
-       (not (zero? fret))))
+(def all-playable-positions
+  (set (filter chorduroy-clojure.position/playable? (for [sixth (cons nil (range 12))
+                                                          fifth (cons nil (range 12))
+                                                          fourth (range 12)
+                                                          third (range 12)
+                                                          second (range 12)
+                                                          first (range 12)]
+                                                      [sixth fifth fourth third second first]))))
 
-(defn- min-max-fret
-  [frets]
-  (let [fretted (filter fretted? frets)]
-    (if (empty? fretted)
-      [0 0]
-      [(apply min fretted) (apply max fretted)])))
-
-(defn- count-fingers
-  [frets]
-  (let [fretted (filter fretted? frets)
-        [min max] (min-max-fret frets)]
-    (if (some #{0} frets)
-      (count fretted)
-      (+ 1 (count (remove #(= min %) fretted))))))
-
-(defn- reachable?
-  [frets]
-  (let [[min max] (min-max-fret frets)
-        reach (- max min)]
-    (and (< reach 4)
-         (< (count-fingers frets) 5))))
-
-(defn playable?
-  [position]
-  (and (well-clustered? position)
-       (reachable? position)))
 
 (defn name-for-chord
   [chord]
