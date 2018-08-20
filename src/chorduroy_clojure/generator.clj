@@ -28,6 +28,9 @@
   [tuning]
   (map (partial generate-row tuning) the-diatonic-chords))
 
+;; 1. get all the possible positions
+;; 2. get the proposed tuning
+;; 3. iterate over the tunings and categorize any hits
 (defn generate
   [tuning]
   (reduce (fn [result position]
