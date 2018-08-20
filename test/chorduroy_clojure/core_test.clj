@@ -47,3 +47,6 @@
     (is (= "--3--\n--0--\n--0--\n--0--\n--2--\n--3--" (position-to-chart g-chord)))
     (is (= "--2--\n--3--\n--2--\n--0--\n--x--\n--x--" (position-to-chart d-chord)))))
 
+;; (deftest identify-test
+;;   (is (= {:root "E" :tonality "Major"} (identify [0 2 2 1 0 0] ["E" "A" "D" "G" "B" "E"])))
+;;   (is (= {:root "A" :tonality "Major"} (identify [nil 0 2 2 2 0] ["E" "A" "D" "G" "B" "E"]))))

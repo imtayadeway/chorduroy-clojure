@@ -27,3 +27,9 @@
 (defn generate
   [tuning]
   (map (partial generate-row tuning) the-diatonic-chords))
+
+(defn generate
+  [tuning]
+  (reduce (fn [result position]
+            (if-let [thing (something-with tuning position)]
+              (assoc result something something))) all-playable-positions))

@@ -20,6 +20,10 @@
                                                           first (range 12)]
                                                       [sixth fifth fourth third second first]))))
 
+;; (defn identify
+;;   [position tuning]
+;;   (let [notes (set (map #(walk-scale %1 %2) tuning position))]
+;;     (first (filter #(= notes (:notes %)) the-diatonic-chords))))
 
 (defn name-for-chord
   [chord]
