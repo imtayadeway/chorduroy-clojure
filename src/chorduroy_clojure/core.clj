@@ -5,11 +5,9 @@
 (def the-chromatic-scale
   ["A" "A#/Bb" "B" "C" "C#/Db" "D" "D#/Eb" "E" "F" "F#/Gb" "G" "G#/Ab"])
 
-(def the-diatonic-chords
-  (vec (for [root the-chromatic-scale
-             tonality ["Major" "Minor" "Major 6th" "Minor 7th" "Dominant 7th" "Major 7th" "Mystic Chord"]]
-         {:root root :tonality tonality} )))
-
+(def intervals
+  {"Major" [0 4 7]
+   "Minor" [0 3 7]})
 
 (def all-playable-positions
   (set (filter chorduroy-clojure.position/playable? (for [sixth (cons nil (range 12))
@@ -20,11 +18,6 @@
                                                           first (range 12)]
                                                       [sixth fifth fourth third second first]))))
 
-;; (defn identify
-;;   [position tuning]
-;;   (let [notes (set (map #(walk-scale %1 %2) tuning position))]
-;;     (first (filter #(= notes (:notes %)) the-diatonic-chords))))
-
 (defn name-for-chord
   [chord]
   (let [{:keys [root tonality]} chord]
@@ -32,10 +25,22 @@
 
 (defn walk-scale
   [start degrees]
-  (let [start-index (.indexOf the-chromatic-scale start)
-        sum (+ start-index degrees)
-        index (if (< sum 12) sum (- sum 12))]
-    (get the-chromatic-scale index)))
+  (if (nil? degrees)
+    nil
+    (let [start-index (.indexOf the-chromatic-scale start)
+          sum (+ start-index degrees)
+          index (if (< sum 12) sum (- sum 12))]
+      (get the-chromatic-scale index))))
+
+(def the-diatonic-chords
+  (vec (for [root the-chromatic-scale
+             tonality ["Major" "Minor" "Major 6th" "Minor 7th" "Dominant 7th" "Major 7th" "Mystic Chord"]]
+         {:root root :tonality tonality :notes (map (partial walk-scale root) (get intervals tonality))} )))
+
+(defn identify
+  [position tuning]
+  (let [notes (set (remove nil? (map #(walk-scale %1 %2) tuning position)))]
+    (first (filter #(= notes (set (:notes %))) the-diatonic-chords))))
 
 (defn harmonize
   [chord]
