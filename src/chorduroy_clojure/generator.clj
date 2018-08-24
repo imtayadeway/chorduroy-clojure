@@ -23,16 +23,22 @@
   (let [name (name-for-chord chord)
         positions (filter (partial filterer/eligible? chord) (positions-for-chord chord tuning))]
     {:name name :positions positions}))
+;; [{:name arst :positions [[]]}]
 
-(defn generate
-  [tuning]
-  (map (partial generate-row tuning) the-diatonic-chords))
+;; (defn generate
+;;   [tuning]
+;;   (map (partial generate-row tuning) the-diatonic-chords))
 
 ;; 1. get all the possible positions
 ;; 2. get the proposed tuning
 ;; 3. iterate over the tunings and categorize any hits
-;; (defn generate
-;;   [tuning]
-;;   (reduce (fn [result position]
-;;             (if-let [thing (something-with tuning position)]
-;;               (assoc result something something))) all-playable-positions))
+(defn generate
+  [tuning]
+  (reduce (fn [result position]
+            (if-let [chord (identify position tuning)]
+              (let [name (name-for-chord chord)]
+                (assoc result name (conj (get result name []) position)))
+
+              result))
+          {}
+          all-playable-positions))
