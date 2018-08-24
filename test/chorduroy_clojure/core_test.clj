@@ -51,4 +51,6 @@
   (is (= {:root "E" :tonality "Major"}
          (select-keys (identify [0 2 2 1 0 0] ["E" "A" "D" "G" "B" "E"]) [:root :tonality])))
   (is (= {:root "A" :tonality "Major"}
-         (select-keys (identify [nil 0 2 2 2 0] ["E" "A" "D" "G" "B" "E"]) [:root :tonality]))))
+         (select-keys (identify [nil 0 2 2 2 0] ["E" "A" "D" "G" "B" "E"]) [:root :tonality])))
+  (is (= {:root "E" :tonality "Dominant 7th"}
+         (select-keys (identify [0 2 0 1 3 0] ["E" "A" "D" "G" "B" "E"]) [:root :tonality]))))

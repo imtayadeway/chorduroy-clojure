@@ -7,7 +7,11 @@
 
 (def intervals
   {"Major" [0 4 7]
-   "Minor" [0 3 7]})
+   "Minor" [0 3 7]
+   "Major 6th" [0 4 7 9]
+   "Minor 7th" [0 3 7 10]
+   "Dominant 7th" [0 4 7 10]
+   "Major 7th" [0 4 7 11]})
 
 (def all-playable-positions
   (set (filter chorduroy-clojure.position/playable? (for [sixth (cons nil (range 12))
