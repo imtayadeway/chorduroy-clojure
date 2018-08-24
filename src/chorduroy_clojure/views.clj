@@ -24,7 +24,7 @@
       (list [:h2 name]
             [:table
              [:tr
-              (for [position positions]
+              (for [position (sort-by #(reduce + (remove nil? %)) positions)]
                 (list [:td
                        [:pre (position-to-chart position)]]
                       [:td]))]]))]))
