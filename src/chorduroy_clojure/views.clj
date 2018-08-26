@@ -1,6 +1,8 @@
 (ns chorduroy-clojure.views
-  (:use [hiccup core page form]))
-(require '[chorduroy-clojure.core :refer :all])
+  (:use [hiccup core page form])
+  (:require [chorduroy-clojure.core :refer :all])
+  (:require [chorduroy-clojure.position :as position]))
+
 
 (defn index-page
   []
