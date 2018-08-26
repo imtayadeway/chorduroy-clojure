@@ -36,3 +36,11 @@
   [position]
   (and (well-clustered? position)
        (reachable? position)))
+
+(defn to-chart
+  [position]
+  (->> position
+       (map #(str "--" (or % "x") "--"))
+       reverse
+       (interpose "\n")
+       (apply str)))

@@ -66,10 +66,14 @@
       "Major 7th" #{root major-third fifth major-seventh}
       "Mystic Chord" #{root augmented-fourth minor-seventh major-third major-sixth major-second})))
 
-(defn position-to-chart
-  [position]
-  (->> position
-       (map #(str "--" (or % "x") "--"))
-       reverse
-       (interpose "\n")
-       (apply str)))
+(defn generate
+  [tuning]
+  (reduce (fn [result position]
+            (if-let [chord (identify position tuning)]
+              (if (filterer/eligible? chord (map #(assoc {} :open %1 :fret %2) tuning position))
+                (let [name (name-for-chord chord)]
+                  (assoc result name (conj (get result name []) position)))
+                result)
+              result))
+          {}
+          all-playable-positions))

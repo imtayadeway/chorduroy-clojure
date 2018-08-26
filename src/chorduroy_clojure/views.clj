@@ -26,5 +26,5 @@
              [:tr
               (for [position (sort-by #(reduce + (remove nil? %)) positions)]
                 (list [:td
-                       [:pre (position-to-chart position)]]
+                       [:pre (position/to-chart position)]]
                       [:td]))]]))]))
