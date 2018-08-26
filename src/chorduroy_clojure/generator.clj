@@ -4,12 +4,12 @@
 
 (defn generate
   [tuning]
-  (reduce (fn [result position]
-            (if-let [chord (identify position tuning)]
-              (if (filterer/eligible? chord (map #(assoc {} :open %1 :fret %2) tuning position))
-                (let [name (name-for-chord chord)]
-                  (assoc result name (conj (get result name []) position)))
-                result)
-              result))
-          {}
-          all-playable-positions))
+  (let [chords (map (fn [position] (if-let [chord (identify position tuning)]
+                                     (if (filterer/eligible? chord (map #(assoc {} :open %1 :fret %2) tuning position))
+                                       [(name-for-chord chord) position]))) all-playable-positions)]
+    (reduce (fn [acc [name position]]
+              (if (nil? name)
+                acc
+                (assoc acc name (conj (get acc name []) position))))
+            {}
+            chords)))
