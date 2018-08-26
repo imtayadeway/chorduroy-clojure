@@ -66,11 +66,6 @@
       "Major 7th" #{root major-third fifth major-seventh}
       "Mystic Chord" #{root augmented-fourth minor-seventh major-third major-sixth major-second})))
 
-(defn in-harmony?
-  [note chord]
-  (let [notes (harmonize chord)]
-    (some #{note} notes)))
-
 (defn position-to-chart
   [position]
   (->> position
