@@ -37,6 +37,27 @@
   (and (well-clustered? position)
        (reachable? position)))
 
+(defn- generate-playable []
+  (set (filter playable? (for [sixth (cons nil (range 12))
+                               fifth (cons nil (range 12))
+                               fourth (range 12)
+                               third (range 12)
+                               second (range 12)
+                               first (range 12)]
+                           [sixth fifth fourth third second first]))))
+
+(def db "db/playable.txt")
+
+(defn dump-playable []
+  (spit
+   db
+   (with-out-str (binding [*print-dup* true] (pr (generate-playable))))))
+
+(defn load-playable []
+  (with-in-str (slurp db) (read)))
+
+(def playable (load-playable))
+
 (defn to-chart
   [position]
   (->> position

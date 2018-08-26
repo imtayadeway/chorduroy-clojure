@@ -12,15 +12,6 @@
    "Dominant 7th" [0 4 7 10]
    "Major 7th" [0 4 7 11]})
 
-(def all-playable-positions
-  (set (filter chorduroy-clojure.position/playable? (for [sixth (cons nil (range 12))
-                                                          fifth (cons nil (range 12))
-                                                          fourth (range 12)
-                                                          third (range 12)
-                                                          second (range 12)
-                                                          first (range 12)]
-                                                      [sixth fifth fourth third second first]))))
-
 (defn name-for-chord
   [chord]
   (let [{:keys [root tonality]} chord]
