@@ -23,7 +23,7 @@
         [min max] (min-max-fret position)]
     (if (some #{0} position)
       (count fretted)
-      (+ 1 (count (remove #(= min %) fretted))))))
+      (inc (count (remove #(= min %) fretted))))))
 
 (defn- reachable?
   [position]

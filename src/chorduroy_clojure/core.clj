@@ -28,8 +28,7 @@
 
 (defn walk-scale
   [start degrees]
-  (if (nil? degrees)
-    nil
+  (when-not (nil? degrees)
     (let [start-index (.indexOf the-chromatic-scale start)
           sum (+ start-index degrees)
           index (if (< sum 12) sum (- sum 12))]
@@ -42,7 +41,7 @@
 
 (defn identify
   [position tuning]
-  (let [notes (set (remove nil? (map #(walk-scale %1 %2) tuning position)))]
+  (let [notes (set (remove nil? (map walk-scale tuning position)))]
     (first (filter #(= notes (set (:notes %))) the-diatonic-chords))))
 
 (defn harmonize
