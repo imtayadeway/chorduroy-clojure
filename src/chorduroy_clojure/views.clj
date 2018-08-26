@@ -22,7 +22,7 @@
    [:head
     [:title "Chorduroy"]]
    [:body
-    (for [[name positions] results]
+    (for [[name positions] (sort results)]
       (list [:h2 name]
             [:table
              [:tr
