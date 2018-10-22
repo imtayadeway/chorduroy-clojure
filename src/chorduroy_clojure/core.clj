@@ -8,11 +8,11 @@
 (def intervals
   {"Major" [0 4 7]
    "Minor" [0 3 7]
-   "Major 6th" [0 4 7 9]
    "Minor 7th" [0 3 7 10]
    "Dominant 7th" [0 4 7 10]
    "Major 7th" [0 4 7 11]
-   "Major 9th" [0 4 7 14]})
+   "Major 9th" [0 4 7 14] ;; need to start representing "optional" intervals
+   "Major 13th" [0 4 7 21]})
 
 (defn name-for-chord
   [chord]
@@ -24,12 +24,12 @@
   (when-not (nil? degrees)
     (let [start-index (.indexOf the-chromatic-scale start)
           sum (+ start-index degrees)
-          index (if (< sum 12) sum (- sum 12))]
+          index (mod sum 12)]
       (get the-chromatic-scale index))))
 
 (def the-diatonic-chords
   (vec (for [root the-chromatic-scale
-             tonality ["Major" "Minor" "Major 6th" "Minor 7th" "Dominant 7th" "Major 7th" "Major 9th"]]
+             tonality ["Major" "Minor" "Minor 7th" "Dominant 7th" "Major 7th" "Major 9th" "Major 13th"]]
          {:root root :tonality tonality :notes (map (partial walk-scale root) (get intervals tonality))} )))
 
 (defn identify
@@ -52,13 +52,14 @@
         major-sixth (walk-scale root 9)
         minor-seventh (walk-scale root 10)
         major-seventh (walk-scale root 11)
-        major-ninth (walk-scale root 14)]
+        major-ninth (walk-scale root 14)
+        major-thirteenth (walk-scale root 21)]
     (case tonality
       "Major" #{root major-third fifth}
       "Minor" #{root minor-third fifth}
-      "Major 6th" #{root major-third major-sixth}
       "Minor 7th" #{root minor-third fifth minor-seventh}
       "Dominant 7th" #{root major-third fifth minor-seventh}
       "Major 7th" #{root major-third fifth major-seventh}
       "Major 9th" #{root major-third fifth major-ninth}
+      "Major 13th" #{root major-third fifth major-thirteenth}
       "Mystic Chord" #{root augmented-fourth minor-seventh major-third major-sixth major-second})))
