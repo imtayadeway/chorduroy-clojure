@@ -61,5 +61,4 @@
       "Dominant 7th" #{root major-third fifth minor-seventh}
       "Major 7th" #{root major-third fifth major-seventh}
       "Major 9th" #{root major-third fifth major-ninth}
-      "Major 13th" #{root major-third fifth major-thirteenth}
-      "Mystic Chord" #{root augmented-fourth minor-seventh major-third major-sixth major-second})))
+      "Major 13th" #{root major-third fifth major-thirteenth})))
