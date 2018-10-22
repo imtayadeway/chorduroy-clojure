@@ -8,6 +8,7 @@
 (def intervals
   {"Major" [0 4 7]
    "Minor" [0 3 7]
+   "Major 6th" [0 4 7 9]
    "Minor 7th" [0 3 7 10]
    "Dominant 7th" [0 4 7 10]
    "Major 7th" [0 4 7 11]})
@@ -27,13 +28,17 @@
 
 (def the-diatonic-chords
   (vec (for [root the-chromatic-scale
-             tonality ["Major" "Minor" "Minor 7th" "Dominant 7th" "Major 7th"]]
+             tonality ["Major" "Minor" "Major 6th" "Minor 7th" "Dominant 7th" "Major 7th"]]
          {:root root :tonality tonality :notes (map (partial walk-scale root) (get intervals tonality))} )))
 
 (defn identify
   [position tuning]
-  (let [notes (set (remove nil? (map walk-scale tuning position)))]
-    (first (filter #(= notes (set (:notes %))) the-diatonic-chords))))
+  (let [notes (remove nil? (map walk-scale tuning position))
+        root (first notes)
+        candidates (filter #(and (= (set notes) (set (:notes %)))
+                                 (= root (:root %)))
+                           the-diatonic-chords)]
+    (first candidates)))
 
 (defn harmonize
   [chord]

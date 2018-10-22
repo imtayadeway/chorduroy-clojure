@@ -2,6 +2,8 @@
   (:require [clojure.test :refer :all]
             [chorduroy-clojure.core :refer :all]))
 
+(def standard-tuning ["E" "A" "D" "G" "B" "E"])
+
 (deftest name-for-chord-test
   (is (= "A Major" (name-for-chord {:root "A" :tonality "Major"})))
   (is (= "A Minor" (name-for-chord {:root "A" :tonality "Minor"}))))
@@ -20,8 +22,12 @@
 
 (deftest identify-test
   (is (= {:root "E" :tonality "Major"}
-         (select-keys (identify [0 2 2 1 0 0] ["E" "A" "D" "G" "B" "E"]) [:root :tonality])))
+         (select-keys (identify [0 2 2 1 0 0] standard-tuning) [:root :tonality])))
   (is (= {:root "A" :tonality "Major"}
-         (select-keys (identify [nil 0 2 2 2 0] ["E" "A" "D" "G" "B" "E"]) [:root :tonality])))
+         (select-keys (identify [nil 0 2 2 2 0] standard-tuning) [:root :tonality])))
   (is (= {:root "E" :tonality "Dominant 7th"}
-         (select-keys (identify [0 2 0 1 3 0] ["E" "A" "D" "G" "B" "E"]) [:root :tonality]))))
+         (select-keys (identify [0 2 0 1 3 0] standard-tuning) [:root :tonality])))
+  (is (= {:root "C#/Db" :tonality "Minor 7th"}
+         (select-keys (identify [nil 4 6 4 5 4] standard-tuning) [:root :tonality])))
+  (is (= {:root "E" :tonality "Major 6th"}
+         (select-keys (identify [0 2 2 1 2 0] standard-tuning) [:root :tonality]))))
