@@ -30,4 +30,6 @@
   (is (= {:root "C#/Db" :tonality "Minor 7th"}
          (select-keys (identify [nil 4 6 4 5 4] standard-tuning) [:root :tonality])))
   (is (= {:root "E" :tonality "Major 6th"}
-         (select-keys (identify [0 2 2 1 2 0] standard-tuning) [:root :tonality]))))
+         (select-keys (identify [0 2 2 1 2 0] standard-tuning) [:root :tonality])))
+  (is (= {:root "E" :tonality "Major 9th"}
+         (select-keys (identify [0 2 2 1 0 2] standard-tuning) [:root :tonality]))))
