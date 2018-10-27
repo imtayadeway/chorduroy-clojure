@@ -1,4 +1,5 @@
-(ns chorduroy-clojure.core)
+(ns chorduroy-clojure.core
+  (:require [clojure.set]))
 
 (def strings ["Sixth" "Fifth" "Fourth" "Third" "Second" "First"])
 (def the-chromatic-scale
