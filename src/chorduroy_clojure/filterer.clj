@@ -1,10 +1,6 @@
 (ns chorduroy-clojure.filterer
   (:use [chorduroy-clojure.core]))
 
-(defn frets-from
-  [position]
-  (map :fret position))
-
 (defn get-position-notes
   [position]
   (->> position
