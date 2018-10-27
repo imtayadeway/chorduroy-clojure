@@ -38,12 +38,12 @@
        (reachable? position)))
 
 (defn- generate-playable []
-  (set (filter playable? (for [sixth (cons nil (range 12))
-                               fifth (cons nil (range 12))
-                               fourth (range 12)
-                               third (range 12)
-                               second (range 12)
-                               first (range 12)]
+  (set (filter playable? (for [sixth (cons nil (range 15))
+                               fifth (cons nil (range 15))
+                               fourth (range 15)
+                               third (range 15)
+                               second (cons nil (range 15))
+                               first (cons nil (range 15))]
                            [sixth fifth fourth third second first]))))
 
 (def db "db/playable.txt")
