@@ -11,6 +11,5 @@
         reduce-fn (fn [acc [name position]]
                     (if (nil? name)
                       acc
-                      (assoc acc name (conj (get acc name []) position))))
-        chords (pmap map-fn position/playable)]
-    (reduce reduce-fn {} chords)))
+                      (assoc acc name (conj (get acc name []) position))))]
+    (reduce reduce-fn {} (pmap map-fn position/playable))))
