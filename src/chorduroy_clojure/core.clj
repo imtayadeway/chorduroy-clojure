@@ -41,12 +41,12 @@
 
 (defn identify
   [position tuning]
-  (let [notes (remove nil? (map walk-scale tuning position))
-        notes-set (set notes)
-        position-root (first notes)
+  (let [position-notes (remove nil? (map walk-scale tuning position))
+        position-root (first position-notes)
+        notes (set position-notes)
         identifying-fn (fn [{:keys [root required optional]}]
                          (and (= root position-root)
-                              (clojure.set/subset? (set required) notes-set)
-                              (clojure.set/subset? notes-set (clojure.set/union (set required) (set optional)))))
+                              (clojure.set/subset? (set required) notes)
+                              (clojure.set/subset? notes (clojure.set/union (set required) (set optional)))))
         candidates (filter identifying-fn the-diatonic-chords)]
     (first candidates)))
