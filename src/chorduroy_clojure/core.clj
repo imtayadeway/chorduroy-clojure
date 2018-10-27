@@ -40,25 +40,3 @@
                                  (= root (:root %)))
                            the-diatonic-chords)]
     (first candidates)))
-
-(defn harmonize
-  [chord]
-  (let [{:keys [root tonality]} chord
-        major-second (walk-scale root 2)
-        minor-third (walk-scale root 3)
-        major-third (walk-scale root 4)
-        augmented-fourth (walk-scale root 5)
-        fifth (walk-scale root 7)
-        major-sixth (walk-scale root 9)
-        minor-seventh (walk-scale root 10)
-        major-seventh (walk-scale root 11)
-        major-ninth (walk-scale root 14)
-        major-thirteenth (walk-scale root 21)]
-    (case tonality
-      "Major" #{root major-third fifth}
-      "Minor" #{root minor-third fifth}
-      "Minor 7th" #{root minor-third fifth minor-seventh}
-      "Dominant 7th" #{root major-third fifth minor-seventh}
-      "Major 7th" #{root major-third fifth major-seventh}
-      "Major 9th" #{root major-third fifth major-ninth}
-      "Major 13th" #{root major-third fifth major-thirteenth})))

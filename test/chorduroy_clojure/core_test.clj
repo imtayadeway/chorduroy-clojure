@@ -14,12 +14,6 @@
   (is (= "A" (walk-scale "G#/Ab" 1)))
   (is (= "G#/Ab" (walk-scale "E" 4))))
 
-(deftest harmonize-test
-  (is (= #{"C" "E" "G"} (harmonize {:root "C" :tonality "Major"})))
-  (is (= #{"C" "D#/Eb" "G"} (harmonize {:root "C" :tonality "Minor"})))
-  (is (= #{"G" "B" "D"} (harmonize {:root "G" :tonality "Major"})))
-  (is (= #{"E" "G#/Ab" "B"} (harmonize {:root "E" :tonality "Major"}))))
-
 (deftest identify-test
   (is (= {:root "E" :tonality "Major"}
          (select-keys (identify [0 2 2 1 0 0] standard-tuning) [:root :tonality])))
