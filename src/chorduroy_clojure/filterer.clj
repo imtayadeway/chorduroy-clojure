@@ -14,7 +14,6 @@
         position-notes (get-position-notes position)]
     (every? position-notes chord-notes)))
 
-
 (defn root-position?
   [chord position]
   (let [{root :root} chord
