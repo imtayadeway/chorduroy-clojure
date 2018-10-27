@@ -33,14 +33,11 @@
 
 (def the-diatonic-chords
   (vec (for [root the-chromatic-scale
-             tonality (keys intervals)]
+             [tonality {:keys [required optional], :or {optional []}}] intervals]
          (let [map-fn (partial walk-scale root)
-               required (map map-fn (get-in intervals [tonality :required]))
-               optional (map map-fn (get-in intervals [tonality :optional] []))]
-           {:root root
-            :tonality tonality
-            :required required
-            :optional optional}))))
+               required (map map-fn required)
+               optional (map map-fn optional)]
+           {:root root :tonality tonality :required required :optional optional}))))
 
 (defn identify
   [position tuning]
