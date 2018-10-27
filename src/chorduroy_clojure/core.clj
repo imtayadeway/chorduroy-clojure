@@ -43,7 +43,7 @@
   [position tuning]
   (let [notes (remove nil? (map walk-scale tuning position))
         root (first notes)
-        candidates (filter #(and (= (set notes) (set (:required %)))
-                                 (= root (:root %)))
+        candidates (filter #(and (= root (:root %))
+                                 (= (set notes) (set (:required %))))
                            the-diatonic-chords)]
     (first candidates)))
