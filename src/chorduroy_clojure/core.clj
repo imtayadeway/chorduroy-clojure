@@ -44,6 +44,7 @@
   (let [notes (remove nil? (map walk-scale tuning position))
         root (first notes)
         candidates (filter #(and (= root (:root %))
-                                 (= (set notes) (set (:required %))))
+                                 (clojure.set/subset? (set (:required %)) (set notes))
+                                 (clojure.set/subset? (set notes) (clojure.set/union (set (:required %)) (set (:optional %)))))
                            the-diatonic-chords)]
     (first candidates)))
