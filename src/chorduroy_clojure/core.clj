@@ -35,8 +35,8 @@
   (vec (for [root the-chromatic-scale
              [tonality {:keys [required optional], :or {optional []}}] intervals]
          (let [map-fn (partial walk-scale root)
-               required (map map-fn required)
-               optional (map map-fn optional)]
+               required (set (map map-fn required))
+               optional (set (map map-fn optional))]
            {:root root :tonality tonality :required required :optional optional}))))
 
 (defn identify
@@ -46,7 +46,7 @@
         notes (set position-notes)
         identifying-fn (fn [{:keys [root required optional]}]
                          (and (= root position-root)
-                              (clojure.set/subset? (set required) notes)
-                              (clojure.set/subset? notes (clojure.set/union (set required) (set optional)))))
+                              (clojure.set/subset? required notes)
+                              (clojure.set/subset? notes (clojure.set/union required optional))))
         candidates (filter identifying-fn the-diatonic-chords)]
     (first candidates)))
