@@ -1,5 +1,4 @@
-(ns chorduroy-clojure.core
-  (:require [chorduroy-clojure.position :refer [playable?]]))
+(ns chorduroy-clojure.core)
 
 (def strings ["Sixth" "Fifth" "Fourth" "Third" "Second" "First"])
 (def the-chromatic-scale
