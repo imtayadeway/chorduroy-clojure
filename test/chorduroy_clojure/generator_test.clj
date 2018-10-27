@@ -3,13 +3,11 @@
             [chorduroy-clojure.core :refer :all]
             [chorduroy-clojure.generator :refer :all]))
 
-(def standard-tuning ["E" "A" "D" "G" "B" "E"])
-(def open-g-tuning ["D" "G" "D" "G" "B" "D"])
-
-;; We are now generating complex chords that cannot be played in every
-;; key, so this test is currently failing
-;; (deftest generate-test
-;;   (let [results (generate standard-tuning)
-;;         chords (keys results)
-;;         expected (map name-for-chord the-diatonic-chords)]
-;;     (is (= (set expected) (set chords)))))
+(deftest generate-test
+  (let [results (generate ["E" "A" "D" "G" "B" "E"])]
+    (is (some #{[0 2 2 1 0 0]} (get results "E Major")))
+    (is (some #{[0 2 2 0 0 0]} (get results "E Minor")))
+    (is (some #{[0 2 0 1 3 0]} (get results "E Dominant 7th")))
+    (is (some #{[3 2 0 0 0 3]} (get results "G Major")))
+    (is (some #{[nil nil 0 2 3 2]} (get results "D Major")))
+    (is (some #{[nil 3 2 0 0 0]} (get results "C Major 7th")))))
