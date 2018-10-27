@@ -8,9 +8,13 @@
   {"Major" [0 4 7]
    "Minor" [0 3 7]
    "Minor 7th" [0 3 7 10]
+   "Minor 9th" [0 3 7 14]
+   "Minor 11th" [0 3 7 17]
+   "Minor 13th" [0 3 7 20]
    "Dominant 7th" [0 4 7 10]
    "Major 7th" [0 4 7 11]
    "Major 9th" [0 4 7 14] ;; need to start representing "optional" intervals
+   "Major 11th" [0 4 7 17]
    "Major 13th" [0 4 7 21]})
 
 (defn name-for-chord
@@ -29,7 +33,9 @@
 (def the-diatonic-chords
   (vec (for [root the-chromatic-scale
              tonality (keys intervals)]
-         {:root root :tonality tonality :notes (map (partial walk-scale root) (get intervals tonality))} )))
+         {:root root
+          :tonality tonality
+          :notes (map (partial walk-scale root) (get intervals tonality))} )))
 
 (defn identify
   [position tuning]
