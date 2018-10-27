@@ -1,6 +1,5 @@
 (ns chorduroy-clojure.generator)
 (require '[chorduroy-clojure.core :refer :all])
-(require '[chorduroy-clojure.filterer :as filterer])
 (require '[chorduroy-clojure.position :as position])
 
 (defn generate
