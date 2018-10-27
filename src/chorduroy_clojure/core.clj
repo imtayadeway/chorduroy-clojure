@@ -28,7 +28,7 @@
 
 (def the-diatonic-chords
   (vec (for [root the-chromatic-scale
-             tonality ["Major" "Minor" "Minor 7th" "Dominant 7th" "Major 7th" "Major 9th" "Major 13th"]]
+             tonality (keys intervals)]
          {:root root :tonality tonality :notes (map (partial walk-scale root) (get intervals tonality))} )))
 
 (defn identify
