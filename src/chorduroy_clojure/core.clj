@@ -47,6 +47,5 @@
         identifying-fn (fn [{:keys [root required optional]}]
                          (and (= root position-root)
                               (clojure.set/subset? required notes)
-                              (clojure.set/subset? notes (clojure.set/union required optional))))
-        candidates (filter identifying-fn the-diatonic-chords)]
-    (first candidates)))
+                              (clojure.set/subset? notes (clojure.set/union required optional))))]
+    (some #(when (identifying-fn %) %) the-diatonic-chords)))
