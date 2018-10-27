@@ -15,7 +15,8 @@
    "Major 7th" [0 4 7 11]
    "Major 9th" [0 4 7 14] ;; need to start representing "optional" intervals
    "Major 11th" [0 4 7 17]
-   "Major 13th" [0 4 7 21]})
+   "Major 13th" [0 4 7 21]
+   "Mystic Chord" [0 6 10 16 21 26]})
 
 (defn name-for-chord
   [chord]
