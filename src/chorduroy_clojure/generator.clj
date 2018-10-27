@@ -6,8 +6,7 @@
 (defn generate
   [tuning]
   (let [chords (pmap (fn [position] (if-let [chord (identify position tuning)]
-                                      (if (filterer/eligible? chord (map walk-scale tuning position))
-                                        [(name-for-chord chord) position]))) position/playable)]
+                                      [(name-for-chord chord) position])) position/playable)]
     (reduce (fn [acc [name position]]
               (if (nil? name)
                 acc
