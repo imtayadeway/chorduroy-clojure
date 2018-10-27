@@ -5,11 +5,12 @@
 
 (defn generate
   [tuning]
-  (let [chords (pmap (fn [position] (if-let [chord (identify position tuning)]
-                                      [(name-for-chord chord) position])) position/playable)]
-    (reduce (fn [acc [name position]]
-              (if (nil? name)
-                acc
-                (assoc acc name (conj (get acc name []) position))))
-            {}
-            chords)))
+  (let [map-fn (fn [position]
+                 (if-let [chord (identify position tuning)]
+                   [(name-for-chord chord) position]))
+        reduce-fn (fn [acc [name position]]
+                    (if (nil? name)
+                      acc
+                      (assoc acc name (conj (get acc name []) position))))
+        chords (pmap map-fn position/playable)]
+    (reduce reduce-fn {} chords)))
