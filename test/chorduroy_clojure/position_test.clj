@@ -19,3 +19,14 @@
     (is (= "--0--\n--0--\n--1--\n--2--\n--2--\n--0--" (to-chart e-chord)))
     (is (= "--3--\n--0--\n--0--\n--0--\n--2--\n--3--" (to-chart g-chord)))
     (is (= "--2--\n--3--\n--2--\n--0--\n--x--\n--x--" (to-chart d-chord)))))
+
+(deftest sort-keyfn-test
+  (is (= [[0 2 2 1 0 0]
+          [3 2 0 0 0 3]
+          [nil 0 2 2 2 0]
+          [nil nil 0 2 3 2]]
+         (sort-by sort-keyfn
+                  [[nil 0 2 2 2 0]
+                   [3 2 0 0 0 3]
+                   [nil nil 0 2 3 2]
+                   [0 2 2 1 0 0]]))))
