@@ -5,7 +5,7 @@
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [compojure "1.5.1"]
                  [ring/ring-defaults "0.2.1"]
-                 [http-kit "2.2.0"]
+                 [ring/ring-jetty-adapter "1.5.1"]
                  [hiccup "1.0.5"]]
   :plugins [[lein-ring "0.9.7"]]
   :ring {:handler chorduroy-clojure.handler/app}
