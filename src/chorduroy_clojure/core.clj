@@ -5,6 +5,9 @@
 (def the-chromatic-scale
   ["A" "A#/Bb" "B" "C" "C#/Db" "D" "D#/Eb" "E" "F" "F#/Gb" "G" "G#/Ab"])
 
+(def the-chromatic-scale-index
+  (zipmap the-chromatic-scale (range)))
+
 (def intervals
   {"Major" {:required [0 4 7]}
    "Minor" {:required [0 3 7]}
@@ -27,7 +30,7 @@
 (defn walk-scale
   [start degrees]
   (when-not (nil? degrees)
-    (let [start-index (.indexOf the-chromatic-scale start)
+    (let [start-index (the-chromatic-scale-index start)
           sum (+ start-index degrees)
           index (mod sum 12)]
       (get the-chromatic-scale index))))
