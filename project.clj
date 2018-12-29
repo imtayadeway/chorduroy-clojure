@@ -12,5 +12,6 @@
   :uberjar-name "chorduroy-standalone.jar"
   :profiles
   {:dev {:dependencies [[javax.servlet/servlet-api "2.5"]
-                        [ring/ring-mock "0.3.0"]]}
+                        [ring/ring-mock "0.3.0"]
+                        [criterium "0.4.4"]]}
    :uberjar {:main chorduroy-clojure.handler :aot :all}})
