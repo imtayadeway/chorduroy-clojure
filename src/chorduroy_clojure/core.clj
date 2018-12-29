@@ -36,20 +36,21 @@
       (get the-chromatic-scale index))))
 
 (def the-diatonic-chords
-  (vec (for [root the-chromatic-scale
-             [tonality {:keys [required optional], :or {optional []}}] intervals]
-         (let [map-fn (partial walk-scale root)
-               required (set (map map-fn required))
-               optional (set (map map-fn optional))]
-           {:root root :tonality tonality :required required :optional optional}))))
+  (group-by :root
+            (vec (for [root the-chromatic-scale
+                       [tonality {:keys [required optional], :or {optional []}}] intervals]
+                   (let [map-fn (partial walk-scale root)
+                         required (set (map map-fn required))
+                         optional (set (map map-fn optional))]
+                     {:root root :tonality tonality :required required :optional optional})))))
 
 (defn identify
   [position tuning]
   (let [position-notes (remove nil? (map walk-scale tuning position))
         position-root (first position-notes)
         notes (set position-notes)
-        identifying-fn (fn [{:keys [root required optional]}]
-                         (and (= root position-root)
-                              (clojure.set/subset? required notes)
+        candidates (the-diatonic-chords position-root)
+        identifying-fn (fn [{:keys [required optional]}]
+                         (and (clojure.set/subset? required notes)
                               (clojure.set/subset? notes (clojure.set/union required optional))))]
-    (some #(when (identifying-fn %) %) the-diatonic-chords)))
+    (some #(when (identifying-fn %) %) candidates)))
