@@ -41,8 +41,9 @@
                        [tonality {:keys [required optional], :or {optional []}}] intervals]
                    (let [map-fn (partial walk-scale root)
                          required (set (map map-fn required))
-                         optional (set (map map-fn optional))]
-                     {:root root :tonality tonality :required required :optional optional})))))
+                         optional (set (map map-fn optional))
+                         permitted (clojure.set/union required optional)]
+                     {:root root :tonality tonality :required required :permitted permitted})))))
 
 (defn identify
   [position tuning]
@@ -50,7 +51,7 @@
         position-root (first position-notes)
         notes (set position-notes)
         candidates (the-diatonic-chords position-root)
-        identifying-fn (fn [{:keys [required optional]}]
+        identifying-fn (fn [{:keys [required permitted]}]
                          (and (clojure.set/subset? required notes)
-                              (clojure.set/subset? notes (clojure.set/union required optional))))]
+                              (clojure.set/subset? notes permitted)))]
     (some #(when (identifying-fn %) %) candidates)))
