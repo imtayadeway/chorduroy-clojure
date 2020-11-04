@@ -1,10 +1,5 @@
 (ns chorduroy-clojure.position)
 
-(defn- well-clustered?
-  [position]
-  (let [clusters (partition-by nil? position)]
-    (< (count clusters) 3)))
-
 (defn- fretted?
   [fret]
   (and (not (nil? fret))
@@ -34,8 +29,7 @@
 
 (defn playable?
   [position]
-  (and (well-clustered? position)
-       (reachable? position)))
+  (reachable? position))
 
 (defn- generate-playable []
   (set (filter playable? (for [sixth (cons nil (range 15))
