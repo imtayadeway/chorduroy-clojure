@@ -63,4 +63,4 @@
 (defn sort-keyfn
   [position]
   (let [muted-score 16] ;; muted scores high
-    (reduce #(+ %2 (or %1 muted-score) 0 position))))
+    (reduce #(+ %2 (or %1 muted-score)) 0 position)))
