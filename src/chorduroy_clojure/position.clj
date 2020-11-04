@@ -62,8 +62,5 @@
 
 (defn sort-keyfn
   [position]
-  (let [muted-score 16 ;; muted scores high
-        multipliers [3200000 160000 8000 400 20 1]] ;; sort by sixth string, then fifth, etc.
-    (->> position
-         (map #(* %1 (or %2 muted-score)) multipliers)
-         (apply +))))
+  (let [muted-score 16] ;; muted scores high
+    (reduce #(+ %2 (or %1 muted-score) 0 position))))
