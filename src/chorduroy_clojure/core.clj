@@ -10,16 +10,26 @@
 
 (def intervals
   {"Major" {:required [0 4 7]}
-   "Minor" {:required [0 3 7]}
-   "Minor 7th" {:required [0 3 7 10]}
-   "Minor 9th" {:required [0 3 7 14] :optional [10]}
-   "Minor 11th" {:required [0 3 7 17] :optional [10 14]}
-   "Minor 13th" {:required [0 3 7 20] :optional [10 14 17]}
-   "Dominant 7th" {:required [0 4 7 10]}
+   "Major 6th" {:required [0 4 7 9]}
    "Major 7th" {:required [0 4 7 11]}
    "Major 9th" {:required [0 4 7 14] :optional [11]}
    "Major 11th" {:required [0 4 7 17] :optional [11 14]}
    "Major 13th" {:required [0 4 7 21] :optional [11 14 17]}
+
+   "Minor" {:required [0 3 7]}
+   "Minor 6th" {:required [0 3 7 9]}
+   "Minor 7th" {:required [0 3 7 10]}
+   "Minor 9th" {:required [0 3 7 14] :optional [10]}
+   "Minor 11th" {:required [0 3 7 17] :optional [10 14]}
+   "Minor 13th" {:required [0 3 7 20] :optional [10 14 17]}
+
+   "Augmented 7th" {:required [0 4 8 10]}
+   "Augmented Major 7th" {:required [0 4 8 11]}
+   "Diminished 7th" {:required [0 3 6 9]}
+   "Dominant 7th" {:required [0 4 7 10]}
+   "Minor/Major 7th" {:required [0 3 7 11]}
+   "Half-Diminished 7th" {:required [0 3 6 10]}
+
    "Mystic Chord" {:required [0 6 10 16 21 26]}})
 
 (defn name-for-chord
