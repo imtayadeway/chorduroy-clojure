@@ -11,23 +11,65 @@
 (def intervals
   {"Major" {:required [0 4 7]}
    "Major 6th" {:required [0 4 7 9]}
+   "Major 6th + 9" {:required [0 4 7 9 14]}
+   "Major 6th + #11" {:required [0 4 7 9 18] :optional [14]}
    "Major 7th" {:required [0 4 7 11]}
+   "Major 7th + 9" {:required [0 4 7 11 14]}
+   "Major 7th + #11" {:required [0 4 7 11 18] :optional [14]}
+   "Major 7th + 13" {:required [0 4 7 11 21] :optional [14 18]}
    "Major 9th" {:required [0 4 7 14] :optional [11]}
    "Major 11th" {:required [0 4 7 17] :optional [11 14]}
    "Major 13th" {:required [0 4 7 21] :optional [11 14 17]}
 
    "Minor" {:required [0 3 7]}
    "Minor 6th" {:required [0 3 7 9]}
+   "Minor 6th + 9" {:required [0 3 7 9 14]}
+   "Minor 6th + 11" {:required [0 3 7 9 17] :optional [14]}
+   "Minor 6th + #11" {:required [0 3 7 9 18] :optional [14]}
+   "Minor 6th + ♮7" {:required [0 3 7 9 11]}
    "Minor 7th" {:required [0 3 7 10]}
+   "Minor 7th + b9" {:required [0 3 7 10 13]}
+   "Minor 7th + 9" {:required [0 3 7 10 14]}
+   "Minor 7th + 11" {:required [0 3 7 10 17] :optional [14]}
+   "Minor 7th (b5)" {:required [0 3 6 10]}
+   "Minor 7th (b5) + b9" {:required [0 3 6 10 13]}
+   "Minor 7th (b5) + 9" {:required [0 3 6 10 14]}
+   "Minor 7th (b5) + 11" {:required [0 3 6 10 17] :optional [14]}
+   "Minor 7th (b5) + #5" {:required [0 3 6 8 10]}
    "Minor 9th" {:required [0 3 7 14] :optional [10]}
    "Minor 11th" {:required [0 3 7 17] :optional [10 14]}
    "Minor 13th" {:required [0 3 7 20] :optional [10 14 17]}
 
    "Augmented 7th" {:required [0 4 8 10]}
    "Augmented Major 7th" {:required [0 4 8 11]}
+   "Augmented Major 7th + 9" {:required [0 4 8 11 14]}
+   "Augmented Major 7th + #11" {:required [0 4 8 11 18] :optional [14]}
    "Diminished 7th" {:required [0 3 6 9]}
+   "Diminished 7th + 9" {:required [0 3 6 9 14]}
+   "Diminished 7th + 11" {:required [0 3 6 9 17] :optional [14]}
+   "Diminished 7th + #5" {:required [0 3 6 8 9]}
+   "Diminished 7th + ♮7" {:required [0 3 6 9 11]}
    "Dominant 7th" {:required [0 4 7 10]}
+   "Dominant 7th + b9" {:required [0 4 7 10 13]}
+   "Dominant 7th + 9" {:required [0 4 7 10 14]}
+   "Dominant 7th + #9" {:required [0 4 7 10 15]}
+   "Dominant 7th + #11" {:required [0 4 7 10 18] :optional [14]}
+   "Dominant 7th + b13" {:required [0 4 7 10 20] :optional [14 18]}
+   "Dominant 7th + 13" {:required [0 4 7 10 21] :optional [14 18]}
+   "Dominant 7th (b5)" {:required [0 4 6 10]}
+   "Dominant 7th (b5) + b9" {:required [0 4 6 10 13]}
+   "Dominant 7th (b5) + 9" {:required [0 4 6 10 14]}
+   "Dominant 7th (b5) + #9" {:required [0 4 6 10 15]}
+   "Dominant 7th (b5) + b13" {:required [0 4 6 10 20] :optional [14]}
+   "Dominant 7th (+5)" {:required [0 4 8 10]}
+   "Dominant 7th (+5) + b9" {:required [0 4 8 10 13]}
+   "Dominant 7th (+5) + 9" {:required [0 4 8 10 14]}
+   "Dominant 7th (+5) + #9" {:required [0 4 8 10 15]}
+   "Dominant 7th (+5) + #11" {:required [0 4 8 10 18] :optional [14]}
    "Minor/Major 7th" {:required [0 3 7 11]}
+   "Minor/Major 7th + 9" {:required [0 3 7 11 14]}
+   "Minor/Major 7th + 11" {:required [0 3 7 11 17] :optional [14]}
+   "Minor/Major 7th + #11" {:required [0 3 7 11 18] :optional [14]}
    "Half-Diminished 7th" {:required [0 3 6 10]}
 
    "Mystic Chord" {:required [0 6 10 16 21 26]}})
